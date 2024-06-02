@@ -1,0 +1,24 @@
+<div>
+  <h2 id = "title">Requests</h2>
+  <table class="table table-striped table-bordered">
+      <thead>
+          <tr class="bg-info text-white">
+              <th>Name</th>
+              <th>Currency</th>
+              <th>Request Date</th>
+              <th>Value</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let request of requests; let i = index">
+              <td>{{ request.name }}</td>
+              <td>{{ request.currency }}</td>
+              <td>{{ request.requestDate | date:'short' }}</td>
+              <td>{{ request.wartosc }}</td>
+              <td><button class="btn btn-danger" (click)="deleteRequest(i)">Usuń</button></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+  

@@ -1,0 +1,21 @@
+#form {
+    margin-top: 30px;
+    width: 30%;
+} 
+
+body {
+    margin: 0;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: lightgray; 
+}
+
+.ng-invalid.ng-touched:not(form){
+    border-left: 5px solid red;
+}
+
+#input{
+    width: 100%;
+}
