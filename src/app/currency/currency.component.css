@@ -8,7 +8,6 @@ body {
     height: 700px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     background-color: lightgray; 
 }
 
@@ -19,3 +18,7 @@ body {
 #input{
     width: 100%;
 }
+
+/* form to odniesienie do elementu wskazanego poprzez id = form, body to część składni i jest w nim ujęte wszystko co w html
+    .ng-invalid.ng-touched:not(form)  to metoda wywołana w css która sprawdza brak poprawności inputu i jeśli taka istneije a ten został naruszony to nadaje mu określony styl
+*/

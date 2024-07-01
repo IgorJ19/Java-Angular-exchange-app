@@ -1,38 +1,44 @@
-import { Component } from '@angular/core';
-import { CurrencyService } from '../currency.service';
+import { Component, OnDestroy } from '@angular/core';
+import { CurrencyService } from '../core/currency.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-currency',
   templateUrl: './currency.component.html',
   styleUrls: ['./currency.component.css']
 })
-export class CurrencyComponent {
-  currency = '';
-  name = '';
+export class CurrencyComponent implements OnDestroy{
+  currency !: string;
+  name !: string;
   value: number | null = null;
   error: string | null = null;
 
   constructor(private currencyService: CurrencyService) { }
 
-  getCurrencyValue() {
-    if (!this.name) {
-      this.error = 'You need to specify the name';
-      return;
-    }
+  private subscriptions: Subscription[] = [];
 
+  getCurrencyValue() {
+
+    //to odpowiada za podanie realnie wartości oczekiwanej w dużych literach do poniżej wykonywanej metody
     const upperCaseCurrency = this.currency.toUpperCase();
 
-    this.currencyService.getCurrentCurrencyValue(upperCaseCurrency, this.name).subscribe(
+   const sub = this.currencyService.getCurrentCurrencyValue(upperCaseCurrency, this.name).subscribe(
       response => {
         this.value = response.value;
         this.error = null;
       },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       error => {
         this.error = 'Invalid currency code or API error';
         this.value = null;
       },
       
     );
+    this.subscriptions.push(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe);
   }
 }
 
